@@ -47,11 +47,13 @@ namespace MashupApi.Controllers
                 var artistData = await _musicBrainzClient.GetArtist(mbid);
                 _logger.LogDebug("Got artist in {Elapsed}, getting titles.", sw.Elapsed);
                 sw.Restart();
-                
+
+                // Get wikipedia title from wikidata
                 var wikipediaTitle = await _wikiDataClient.GetTitle(artistData.WikimediaIdentifier);
                 _logger.LogDebug("Got wikimedia data in {Elapsed}, getting wikipedia.", sw.Elapsed);
                 sw.Restart();
-
+                
+                // Grab data from wikipedia
                 var wikipediaExcerpt = await _wikipediaClient.Get(wikipediaTitle);
                 _logger.LogDebug("Got wikipedia reference in {Elapsed}", sw.Elapsed);
                 sw.Restart();

@@ -16,6 +16,7 @@ namespace MashupApi.Models.MusicBrainz
         [JsonPropertyName("relations")]
         public IEnumerable<Relation> Relations { get; set; }
         public virtual RelationUrl WikidataUrl => Relations.FirstOrDefault(r => r.Type == "wikidata")?.Url;
+        public virtual RelationUrl WikipediaUrl => Relations.FirstOrDefault(r => r.Type == "wikipedia")?.Url;
         public virtual string WikimediaIdentifier => WikidataUrl?.Resource.Segments.LastOrDefault();
         public virtual IEnumerable<Release> Albums => Releases.Where(r => r.Type == "Album");//.AsEnumerable();
     }
